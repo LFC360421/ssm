@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.TeacherMapper">
+
+    <!--增-->
+    <insert id="add" parameterType="Teacher" >
+        insert into teacher (id,name,age,major) values (#{id},#{name},#{age},#{major})
+    </insert>
+    <insert id="add2" parameterType="Teacher" >
+        insert into teacher2 (id,detail) values (#{id},#{detail})
+    </insert>
+
+    <!--    改-->
+    <update id="update" parameterType="Teacher" >
+        update teacher set id=#{id},name=#{name},age=#{age},major=#{major} where id=#{id}
+    </update>
+    <update id="update2" parameterType="Teacher" >
+        update teacher2 set id=#{id},detail=#{detail} where id=#{id}
+    </update>
+
+    <!--刪-->
+    <delete id="delete" parameterType="int" >
+        delete from teacher where id= #{id}
+    </delete>
+    <delete id="delete2" parameterType="int" >
+        delete from teacher2 where id= #{id}
+    </delete>
+    <!--根据id查-->
+    <!--select标签的id值对应Mapper接口中的方法名-->
+    <select id="findById" parameterType="int" resultType="Teacher">
+        <!--sql语句中,#{Mapper接口传入的参数}-->
+        select * from teacher t1 left join teacher2 t2 on t1.id=t2.id  where t1.id=#{id}
+    </select>
+
+   <!--查询所有-->
+    <select id="findAll" resultType="Teacher">
+        select * from teacher t1 left join teacher2 t2 on t1.id=t2.id order by age
+    </select>
+
+    <!-- 通过id和name查询   -->
+    <select id="findByIdAndName" parameterType="Object" resultType="Teacher">
+        select id,name from teacher where id=#{id} and name=#{name}
+    </select>
+
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 开启注解扫描，扫描controller包 -->
+    <context:component-scan base-package="com.controller"/>
+
+    <!-- 开启Spring MVC注解驱动 -->
+    <mvc:annotation-driven />
+
+    <!-- 静态资源默认servlet配置 -->
+    <mvc:default-servlet-handler/>
+
+    <!--定义 viewResolver 视图解析器,定位视图-->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/page/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 文件上传 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="10485760000"></property>
+        <property name="maxInMemorySize" value="40960"></property>
+    </bean>
+<!--    &lt;!&ndash; 校验器 &ndash;&gt;-->
+<!--    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
+<!--        &lt;!&ndash; hibernate校验器 &ndash;&gt;-->
+<!--        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"></property>-->
+<!--        &lt;!&ndash; 指定校验使用的资源文件，在文件中配置校验错误信息,如不指定，则默认classpath下的validationMessage.properties文件 &ndash;&gt;-->
+<!--        <property name="validationMessageSource" ref="messageSource"></property>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; 校验错误信息配置文件 &ndash;&gt;-->
+<!--    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+<!--        &lt;!&ndash; 资源文件名 &ndash;&gt;-->
+<!--        <property name="basenames">-->
+<!--            <list>-->
+<!--                &lt;!&ndash; 配置错误信息文件 CustomValidationMessages.properties&ndash;&gt;-->
+<!--                <value>classpath:CustomValidationMessages</value>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--        &lt;!&ndash; 解决中文乱码 &ndash;&gt;-->
+<!--        <property name="defaultEncoding" value="utf-8"></property>-->
+<!--        &lt;!&ndash; 资源文件编码格式 &ndash;&gt;-->
+<!--        <property name="fileEncodings" value="utf-8"></property>-->
+<!--        &lt;!&ndash; 资源文件缓存时间 &ndash;&gt;-->
+<!--        <property name="cacheSeconds" value="120"></property>-->
+<!--    </bean>-->
+</beans>
